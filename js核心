@@ -1,0 +1,976 @@
+整理进行中，未完，待续
+
+JS基础
+====
+
+1.数据类型？
+-------------------------------------------
+
+**6基本数据类型**： Undefined, Null, Boolean, Number, String ,Symbol
+**引用类型：** Array Object Date Function
+
+**区别：**
+基本类型值保存在栈空间，我们通过按值来访问的。
+引用类型，的值是对象，栈内存中存放地址指向堆内存中的对象。是按引用访问的。栈内存中存放的只是该对象的访问地址，在堆内存中为这个值分配空间。
+1.基本数据类型不可以添加/删除属性和方法；
+2.复制的方式不同；引用类型复制的时候，复制的是指针，2个变量实际指的是同一个对象。
+3.函数的参数是按值传递的
+**检测数据类型**	typeof instanceof
+**转型数据类型**
+    显式：Boolean()/Number()/pareseInt()/pareseFloat()/toString()/String()
+    隐私： +、 赋值
+
+**区别**： undefined与null 的区别
+
+  **null：**  
+    是Null类型的值.
+    是个空值，空对象指针.
+    typeof null，结果为Object;
+    null用来表示尚未存在的对象.
+   **undefined :**
+    是Undefined类型的值。
+    typeof undefined，结果为undefined;
+    一个声明了变量，但未初始化值，结果就是undefined
+    没有返回值的函数，返回的也是undefined,
+    没有实参的形参也是undefined;
+
+**symbol**
+表示独一无二的值
+Symbol 值通过Symbol函数生成
+对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增的 Symbol 类型
+Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象
+由于 Symbol 值不是对象，所以不能添加属性。**基本上，它是一种类似于字符串的数据类型**
+Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的。因为symbol的每个值不相等。
+Symbol 值不能与其他类型的值进行运算，会报错
+Symbol 值可以显式转为字符串。
+Symbol 值也可以转为布尔值，但是不能转为数值
+Symbol 值作为对象属性名时，不能用点运算符。
+
+2.对面向对象的理解？
+---------------------------------------
+
+**何为面向对象**
+	万物皆对象，
+	对象又有如下特点：　
+	抽象：抓住核心问题
+	封装：只能通过对象来访问方法
+	继承：从已有的对象下继承出新的对象
+	多态：多对象的不同形态
+**创建对象的5种方式**
+	1.工厂方式创建对象：面向对象中的封装函数(内置对象)
+	2.构造函数创建对象
+	优点：创建自定义函数意味着将来可以将它的实例标识为一种特定的类型，这是构造函数胜过工厂模式的地方
+	缺点：每个方法都要在每个实例上重新创建一遍
+	3、对象字面量方式创建对象
+	4、用原型方式　
+	1、优点：可以让所有的对象实例共享它所包含的属性和方法
+	2、缺点：原型中是所有属性都是共享的，但是实例一般都是要有自己的单独属性的。所以一般很少单独使用原型模式。
+	5.混合模型：构造函数模式定义实例属性，而原型模式用于定义方法和共享的属性
+总结：使用上述的混合法
+
+3.数组的增删改查
+---------------
+
+**数组的增加**
+	array.push()   向数组末尾添加元素，返回的是添加后新数组的长度，原有数组改变
+	array.unshift()  向数组开头添加元素，返回的是添加后新数组的长度，原有数组改变
+	array.splice(n,m)   从索引n开始删除m个元素，把删除的内容当做新数组返回，原有数组改变 
+    concat()
+    assign()
+
+**数组的删除**
+	array.pop() 删除数组的最后一项，返回的是删除的那一项，原有数组改变
+	array.shift() 删除数组的的第一项，返回的是删除的那一项，原有数组改变
+    splice()
+    slice()
+
+**改** 
+    splice()
+    
+**数组的排列和排序**
+array.reverse() 把数组倒过来排序，原有数组改变
+array.sort() 可以实现由大到小或者由小到大的排序 但是直接写sort只能排序十以内的数字 
+上述增删 排序均涉及到 改查 ；还有一些常用方法如indexOf()  forEach()  map()
+
+4.数组 对象 字符串 的转换；
+----------------------
+
+**数组与字符串的转换**
+数组转字符串：
+	join("+") 把数组的每一项拿出来用指定分隔符隔开 ；
+	tostring把数组的每一项拿出来用逗号隔开，原有数组不变
+字符串转数组:split(“,”)
+
+**对象与数组的转换：**
+	For… in循环赋值法
+
+**对象与字符串的转换**
+	JSON.parse(); //可以将json字符串转换成json对象
+	JSON.stringify(); //可以将json对象转换成json对符串
+
+5.Js数据对象有哪些属性？
+----------------
+
+ES5的属性特性包括下面六个：
+	configurable: 表示能否通过delete来删除属性从而重新定义属性，能够修改属性的特性,默认为true
+	enumberable: 表示是否能通过for-in循环返回属性。默认为true
+	writable: 是否可以修改属性, 默认为true
+	value: 包含这个属性的数据值。读取属性值时3,从这个属性读，写入属性时，把新值保存到这个位置。默认值为undefine.
+	getter: 在读取属性时，调用的函数
+	setter: 在写入属性时调用的函数
+	特别注意：一旦调用了Object.defineProperty方法之后，那些未定义的特性值除了configurable为false之外，其他都为undefined;
+
+6.常见的dom属性和dom 方法（至少3个）
+-------------------------
+
+	DOM是针对HTML和XML文档的一个API(应用程序编程接口). DOM描绘了一个层次化的节点树, 允许开发人员添加, 移除和修改页面的某一部分.
+	常用的DOM方法:
+**1)查找**
+a)	getElementById(id) //通过元素Id，唯一性 
+b)	getElementsByTagName() //通过标签名称
+c)   getElementsByName()    //通过元素的Name属性的值(IE容错能力较强，
+      会得到一个数组，其中包括id等于name值的)
+
+**2）添加、移除、替换、插入 复制**
+c)	appendChild(node) // 可添加 可移动位置;可添加元素  可添加文本
+d)	removeChild(node) 
+e)	replaceChild(取代别人的mode,已有节点) // 替换已有节点
+f)	insertBefore(插入节点,已有节点) //在已有的子节点前插入一个新的子节点
+g)  cloneNode(true/false) //深浅复制
+
+**3)创建**
+    createDocumentFragment()    //创建一个DOM片段
+ 	createElement()  //创建一个具体的元素 div  p  span
+ 	createTextNode()   //创建一个文本节点
+4)
+i)	getAttribute()
+j)	setAttribute()
+
+**5	常用的DOM属性**
+a)	innerHTML  节点(元素)的文本值
+b)	parentNode  节点(元素)的父节点
+c)	childNodes 
+d)	attributes   节点(元素)的属性节点
+
+ **6.两个节点的关系**
+
+
+7.JS获取盒模型宽高的方法：
+---------------
+
+为了方便书写，以下用dom来表示获取的HTML的节点。
+1. dom.style.width/height 
+　　这种方式只能取到dom元素内联样式所设置的宽高，也就是说如果该节点的样式是在style标签中或外联的CSS文件中设置的话，通过这种方法是获取不到dom的宽高的。
+2. dom.currentStyle.width/height 
+　 这种方式获取的是在页面渲染完成后的结果，就是说不管是哪种方式设置的样式，都能获取到。
+　 但这种方式只有IE浏览器支持。
+3. window.getComputedStyle(dom).width/height
+　　这种方式的原理和2是一样的，这个可以兼容更多的浏览器，通用性好一些。
+4. dom.getBoundingClientRect().width/height
+　　这种方式是根据元素在视窗中的绝对位置来获取宽高的
+5. dom.offsetWidth/offsetHeight
+    这个就没什么好说的了，最常用的，也是兼容最好的。
+
+8.写一个通用的事件侦听器函数
+-----------------
+主要考核 事件处理程序 和event对象及其属性和方法
+
+```
+var EventUtil = {
+        addHandler: function(element,type,handler) {//添加事件处理程序
+            if(element.addEventListener) {
+                element.addEventListener(type,handler,false)
+            } else if(element.attachEvent){
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+        removeHandler:function(element,type,handler) {//移除事件处理程序
+            if(element.removeEventListener) {
+                element.removeEventListener(type,handler,false)
+            }
+        },
+        getEvent:function(event){// 获取事件对象
+            return event ? event : window.event;
+        },
+        getTarget:function(event){// 获取事件的目标
+            return event.target || event.srcElement;
+        },
+        preventDefault(){
+            (event) =>{
+                if(event.preventDefault){event.preventDefault()}
+                else {event.returnValue= false}
+            }
+        },
+        stopPropagation(){
+             (event) =>{
+                if(event.stopPropagation){event.stopPropagation()}
+                else {event.cancelBubble= true;}
+            }
+        }
+    }
+    var list = document.getElementById('list')
+    EventUtil.addHandler(list,'click',function(ev){
+        event= EventUtil.getEvent(ev);
+        var target = EventUtil.getTarget(event);
+        alert(target.id);
+    })
+```
+
+9.实现点击ul中li元素
+--------------------------------
+
+方法有很多，闭包法、立即执行函数法、、事件委托法；
+但本题主要考核 DOM事件流 利用事件委托，减少dom操作，提高性能
+```
+var list = document.getElementById('list')
+ list.onclick = function(ev){
+       var ev = ev || window.event; 　　　　
+       var target = ev.target || ev.srcElement;
+       console.log(target.id);
+     }
+```
+
+10.谈谈对Ajax的理解
+-------------
+**原生的写法**
+
+```
+ var xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function(){
+       if(xhr.readyState == 4){
+           console.log(xhr.status)
+            if((xhr.status >= 200 && xhr.status < 300) || xhr.status ==304){
+               var hh = xhr.responseText;
+               var haha1 = document.getElementById('wokao');
+               haha1.innerHTML = hh;
+            }else{
+                alert('failed11',xhr.status);
+            } 
+        }
+    }
+   xhr.open("get","http://10.10.65.109:8888/text.json",true);
+   xhr.setRequestHeader("Accept", "application/json"); 
+ //  xhr.responseType = "json";
+   xhr.send(null);
+   
+```
+
+**Ajax最大特性**：可以实现动态不刷新（局部刷新）. 
+**优点：**
+	通过异步模式，提升了用户体验
+	优化了浏览器和服务器之间的传输，减少不必要的数据往返，减少了带宽占用
+	Ajax在客户端运行，承担了一部分本来由服务器承担的工作，减少了大用户量下的服务器负载。
+ 
+**缺点**
+	1、ajax不支持浏览器back按钮。
+	2、安全问题 AJAX暴露了与服务器交互的细节。
+	3、对搜索引擎的支持比较弱。
+	4、破坏了程序的异常机制。
+	5、不容易调试。
+
+	**post 和get的区别：**
+	GET请求会将参数跟在URL后进行传递，而POST请求则是作为HTTP消息的实体内容发送给WEB服务器。当然在Ajax请求中，这种区别对用户是不可见的。
+	 GET方式请求的数据会被浏览器缓存起来，因此其他人就可以从浏览器的历史记录中读取到这些数据，例如账号和密码等。在某种情况下，GET方式会带来严重的安全问题。而POST方式相对来说就可以避免这些问题。
+	"GET方式提交的数据最多只能是1024字节"，post无
+	get请求和post请求在服务器端的区别:在客户端使用get请求时,服务器端使用Request.QueryString来获取参数,而客户端使用post请求时,服务器端使用Request.Form来获取参数.
+	**适用场景：**
+	POST用于创建资源，资源的内容会被编入HTTP请示的内容中。例如，处理订货表单、在数据库中加入新数据行等。
+当请求无副作用时（如进行搜索），便可使用GET方法；当请求有副作用时（如添加数据行），则用POST方法。
+	若符合下列任一情况，则用POST方法：
+* 请求的结果有持续性的副作用，例如，数据库内添加新的数据行。
+* 若使用GET方法，则表单上收集的数据可能让URL过长。
+* 要传送的数据不是采用7位的ASCII编码。
+	若符合下列任一情况，则用GET方法：
+* 请求是为了查找资源，HTML表单数据仅用来帮助搜索。
+* 请求结果无持续性的副作用。
+* 收集的数据及HTML表单内的输入字段名称的总长不超过1024个字符。
+
+11. 对cookie localStorage sessionStorage的理解
+--------------------------------------------
+
+localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等
+
+	cookie:
+	cookie是网站为了标示用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。
+	cookie数据始终在同源的http请求中携带（即使不需要），记会在浏览器和服务器间来回传递。
+	sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。
+	存储大小：
+	cookie数据大小不能超过4k。
+	sessionStorage和localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大。
+	有期时间：
+	localStorage    存储持久数据，浏览器关闭后数据不丢失除非主动删除数据；
+	sessionStorage  数据在当前浏览器窗口关闭后自动删除。
+	cookie          设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭
+	作用域不同:
+	sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；
+	localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。
+	Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。
+	Web Storage 的 api 接口使用更方便。
+sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。
+
+而localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。
+Web Storage的概念和cookie相似，区别是它是为了更大容量存储设计的。Cookie的大小是受限的，并且每次你请求一个新的页面的时候Cookie都会被发送过去，这样无形中浪费了带宽，另外cookie还需要指定作用域，不可以跨域调用。
+
+除此之外，Web Storage拥有setItem,getItem,removeItem,clear等方法，不像cookie需要前端开发者自己封装setCookie，getCookie。
+总之：cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在 ，而Web Storage仅仅是为了在本地“存储”数据而生
+cookie优点：极高的扩展性和可用性 缺点： 数量和长度受限、安全问题
+cookie 和session 的区别：
+ 1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+ 2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
+    考虑到安全应当使用session。
+ 3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
+     考虑到减轻服务器性能方面，应当使用COOKIE。
+ 4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+ 5、所以个人建议：
+    将登陆信息等重要信息存放为SESSION
+    其他信息如果需要保留，可以放在COOKIE中
+
+12.列举IE 与其他浏览器不一样的特性？
+----------------------
+IE支持currentStyle，FIrefox使用getComputStyle
+
+IE 使用innerText，Firefox使用textContent
+
+滤镜方面：IE:filter:alpha(opacity= num)；Firefox：-moz-opacity:num
+
+事件方面：IE：attachEvent：火狐是addEventListener
+
+鼠标位置：IE是event.clientX；火狐是event.pageX
+
+IE使用event.srcElement；Firefox使用event.target
+
+IE中消除list的原点仅需margin:0即可达到最终效果；FIrefox需要设置margin:0;padding:0以及list-style:none
+
+CSS圆角：ie7以下不支持圆角
+ 
+13.Js中this是怎么工作的？
+-----------------
+
+**原则，那就是this指的是调用函数的那个对象。**
+
+javascript 的this主要是看如何调用这个函数，而不是这个函数所在的作用域。obj.fn() fn中的 this 就是 obj。 fn() this是undifine, 而在js进入函数之前，会有 if(!this) { this = window} 这样的操作。
+
+**this 一共有六种不同的值：**
+
+普通函数调用，this为全局对象或是undefined
+
+作为对象的方法，this为那个对象
+
+new 表达式，this为以该函数为原型的新创建的对象
+
+使用 apply/call指定 this
+
+用bind绑定固定的this
+
+事件处理函数中的this是当前的触发事件的DOM元素(event.currentTarget)
+IE attachEvent添加的事件处理函数中this为window
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this</title>
+</head>
+<body>
+在严格模式下，一般的函数调用中 this 的值是 undefined。
+<button onclick="console.log(this)" >
+    show this
+</button>
+<p id="hahah">测试DOM元素(event.currentTarget)</p>
+<p id="ha">测试DOM元素IE</p>
+<script type="text/javascript">
+var obj={a:1};
+var aa = function func(a,b){ 
+    console.log('this',this); 
+    console.log('this',a);
+    return 1;
+}
+var bb = function funb(){ console.log('this',this); }
+bb.prototype= new aa();//
+
+obj.f = aa;
+/*
+作为对象的方法 
+**
+*/
+obj.f(123);//输出 obj 123
+aa(123); //输出 window  123
+
+(obj.f)();// obj 没懂
+(a=obj.f)(); // window
+(0,obj.f)(); //  window
+
+/*
+call spply bind中this
+*
+*
+*/
+aa.call('call',1);// call 1
+aa.apply('apply',[1]); // apply 1
+var cc = aa.bind('bind',1); 
+cc(22); //bind 1
+var cc1 = new cc(33)// func 1
+/*
+*
+*new 表达式，this为以 该函数为原型 的新创建的对象
+*/
+var dd = new aa(11,22); // func {}
+var bb1 = new bb();
+/*
+*
+**事件处理函数中的this
+**当前的触发事件的DOM元素(event.currentTarget)
+**IE attachEvent添加的事件处理函数中this为window
+*/
+function evtHandle(e)
+{
+    console.log('e.currentTarget.id',this.id); // 
+    console.log('e.target.id',this.id);        // 
+}
+var elements = document.getElementById('hahah');
+var elements1 = document.getElementById('ha');
+elements.addEventListener('click',evtHandle,false);
+// ie专属  chrome下报错
+ // elements1.attachEvent('onclick',evtHandle);
+
+obj = { go: function() { console.info('oo',this) } };
+(0 || obj.go)() // window
+</script>	
+</body>
+</html>
+```
+
+14.js函数的几种调用方式
+--------------
+
+	方法调用模型    var obj = { func : function(){};}    obj.func()
+	函数调用模式　　var func = function(){}    func();
+	构造器调用模式  
+	apply/ call调用模式
+
+15.何为闭包？
+-------------
+
+	**闭包**是指有权访问另一个函数作用域中的变量的函数. 创建闭包常见方式,就是在一个函数内部创建另一个函数.
+**作用:** 
+1.匿名自执行函数  (function (){ ... })();   创建了一个匿名的函数，并立即执行它，由于外部无法引用它内部的变量，因此在执行完后很快就会被释放，关键是这种机制不会污染全局对象。
+2.缓存, 可保留函数内部的值
+3.实现封装
+4.实现模板
+5.给了js函数生成函数的能力，增加了js代码的抽象能力
+**缺点**
+1.造成内存泄露；变量内存无法被标记，导致内存不会被垃圾回收机制回收。
+**为什么要用**
+局部变量无法共享和长久的保存，而全局变量可能造成变量污染，所以我们希望有一种机制既可以长久的保存变量又不会造成全局污染。
+**如何使用**
+1.定义外层函数，封装被保护的局部变量。
+2.定义内层函数，执行对外部函数变量的操作。
+3.外层函数返回内层函数的对象，并且外层函数被调用，结果保存在一个全局的变量中。
+
+```
+var getNum;
+function getCounter() { 
+    var n = 1; 
+    var inner = function () { return n++; }
+    return inner;
+}
+
+getNum = getCounter();
+console.log(getNum()); //1   2 3 4
+```
+
+16.讲下call aolly bind的用法和区别
+--------------------------
+
+apply 、 call 、bind 三者都是用来改变函数的this对象的指向的； 
+apply 、 call 、bind 三者第一个参数都是this要指向的对象，也就是想指定的上下文； 
+apply 、 call 、bind 三者都可以利用后续参数传参； 
+bind是返回对应函数，便于稍后调用；
+apply 、call 则是立即调用 。
+
+```
+function fn(a,b){
+    console.log(this);
+    console.log(a);
+    console.log(b);
+}
+// bind(this,args...)
+bf = fn.bind("Bind this",10); // 没有任何输出，也就是说没有执行这个函数
+bf(); // "Bind this",10,undefined
+bf(20);// “Bind this”,10,20
+// 原函数不受影响
+fn(1,2); //window， 1，2
+bf2 = fn.bind("Bind this",1,2);
+bf2(); // "Bind this",1,2
+
+// call(this,args...)
+fn.call("Call this",1) // "Call this",1,undefined
+fn.call("Call this",1,2) // "Call this",1,2
+
+// apply(this,[args])
+fn.apply("Apply this",[1]) // "Apply this",1,undefined
+fn.apply("Apply this",[1,2]) // "Apply this",1,2
+```
+
+17.js语言的特性
+----------------------------
+
+**特性，即封装、继承、多态**
+此处内容较多，便不详细叙述。注意一下继承的方式
+继承6方式：
+　　1、拷贝继承：通用型  有new无new都可以用
+　　2、类式继承：new构造函数---利用构造函数（类）继承的方式
+　　3、原型继承：无new的对象---借助原型来实现对象继承对象
+　　4. 属性继承：调用父类的构造函数call
+　　5. 方法继承：用for in的形式 拷贝继承（jq也用拷贝继承）
+
+18."use strict"
+---------------
+
+严格模式”的目的，主要有以下几个：
+
+   - 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+　　- 消除代码运行的一些不安全之处，保证代码运行的安全；
+　　- 提高编译器效率，增加运行速度；
+　　- 为未来新版本的Javascript做好铺垫。
+“严格模式”体现了Javascript更合理、更安全、更严谨的发展方向
+
+19.加载方式
+----------
+**1.延迟加载**有些 js 代码并不是页面初始化的时候就立刻需要的，而稍后的某些情况才需要的。延迟加载就是一开始并不加载这些暂时不用的js，而是在需要的时候或稍后再通过js 的控制来异步加载。
+JS延迟加载有助于提高页面加载速度。
+
+js的进程由解析和执行构成。所有的延迟加载方式都只是延迟了执行过程。解析从未停止
+js的执行顺序是自上而下。
+延迟加载几种方式：
+    defer 属性 defer的作用是，告诉浏览器，等到DOM加载完成后，再执行指定脚本。
+    async 属性 async的作用是，使用另一个进程下载脚本，下载时不会阻塞渲染，下载好了 就执行。
+    动态创建DOM方式  document.createElement 
+    使用jQuery的getScript方法
+    使用setTimeout延迟方法
+    让JS最后加载（放在文档尾部）
+
+**2.同步加载**，又称阻塞模式，会阻止浏览器的后续处理，停止了后续的解析，因此停止了后续的文件加载（如图像）、渲染、代码执行。
+
+**3.异步加载**：也就是说第一个fun请求数据时，数据还未返回时便开始执行第二个fun了
+代表：ajax
+
+**4.预加载**
+一种浏览器机制，使用浏览器空闲时间来预先下载/加载用户接下来很可能会浏览的页面/资源，当用户访问某个预加载的链接时，如果从缓存命中,页面就得以快速呈现
+**[5.图片延迟加载的方式][1]**
+
+20.深浅拷贝：
+对象和数组的拷贝有两种 
+浅拷贝即 拷贝了指针指向，当一个对象的值改变会影响另一个对象的值。
+深拷贝， 拷贝的是真正的值。2者相互独立，互不干扰。
+ **浅拷贝的方法3种方法**
+slice() concat() 赋值法  遍历
+注：concat 和 slice 对一维数组 能算是深拷贝;2维的 是浅拷贝
+
+```
+var  a= [1,2,3,4]
+b= a.concat();
+c=a.concat();
+b[0] = 5;
+c[0] = 6;
+a // [1,2,3,4]
+b // [5,2,3,4]
+c // [6,2,3,4]
+
+```
+
+```
+var  aa= [[1,1],[2,2],3,4]
+bb= aa.concat();
+cc=aa.concat();
+bb[1][0] = 5;
+cc[0] = 6;
+aa // [[1,1],[5,2],3,4]
+b // [[1,1],[5,2],3,4]
+c // [6,[5,2],3,4]
+```
+
+```
+var shallowCopy = function(obj) {
+    // 只拷贝对象
+    if (typeof obj !== 'object') return;
+    // 根据obj的类型判断是新建一个数组还是对象
+    var newObj = obj instanceof Array ? [] : {};
+    // 遍历obj，并且判断是obj的属性才拷贝
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            newObj[key] = obj[key];
+        }
+    }
+    return newObj;
+}
+```
+
+**深拷贝的方法4种方法：**
+**一维数组和对象的concat slice法  JSON.parse(JSON.stringify(arr))  和遍历法**
+
+
+```
+var deepCopy = function(obj) {
+    if (typeof obj !== 'object') return;
+    var newObj = obj instanceof Array ? [] : {};
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+        }
+    }
+    return newObj;
+}
+```
+
+
+
+
+js--进阶
+======
+
+1.原型链
+------------
+
+许多OO语言支持两种继承方式：接口继承和实现继承。 
+接口继承只继承方法签名，实现继承则继承实际的方法。 
+由于函数无签名，在JavaScript中无法实现接口继承。所以只能实现方法继承。
+实现继承主要依赖原型链。
+**基本思想**：利用原型，让那个一个引用类型继承另一个引用类型的属性和方法。A.prototype= new B();让原型对象等于另一个类型的实例。 
+所有函数的默认原型都是Object的实例
+即A继承了B ；B 继承了Object;
+
+**什么是原型对象**。我们知道每个构造函数一旦创建都有prototype指针指向它的原型对象（构造函数.prototype）。而原型对象（构造函数.prototype）会默认生成一个constructor指针又指向构造函数。在创建实例时，每个实例有一个__proto__指向该原型对象。原型对象内创建的所有方法会被所有实例共享。
+例：
+
+     Function.prototype = {    
+            constructor : Function,
+            __proto__ : parent prototype,
+            some prototype properties: ...
+        };
+
+原型对象中的方法属性是被所有实例共享的。如果含有引用类型的属性，如数组，修改person1中的数组属性，也会导致person2中的该属性发生变化。
+
+**什么是原型链？**
+函数的原型对象constructor默认指向函数本身，原型对象除了有原型属性外，为了实现继承，还有一个原型链指针proto，该指针指向上一层的原型对象，而上一层的原型对象的结构依然类似，这样利用proto一直指向Object的原型对象上，而Object的原型对象用Object.prototype.proto = null表示原型链的最顶端，如此变形成了javascript的原型链继承，同时也解释了为什么所有的javascript对象都具有Object的基本方法。
+
+原型链就是创建一个构造函数，它会默认生成一个prototype属性并指向原型对象。使用下一个构造函数的原型对象作为这个构造函数的实例。即 A.prototype = new B(); 在下下一个构造函数的原型对象 = new nextFuction。这样下去就会构成一条实例与原型之间的链条，这就是原型链。
+
+![clipboard.png](/img/bV9Www)
+
+
+
+2.继承
+----------
+构造函数A()和实例a1 a2之间的关系；var a1 = new A(); var a2 = new A();
+实例a1与实例a2是独立的
+实例和原型的关系 a1.__proto__ = A.prototype
+构造函数A()和其原型的关系 A.prototype.constructor=A
+
+**6种继承方式**
+**原型链继承本质:**
+是子用类型B的原型等于超类型的实例, 
+B.prototype= new A()
+
+**构造函数继承本质:**
+是子用类型的构造函数内部调用A(),
+B(){A.call(this,**);}
+
+**组合继承本质**
+原型链和构造函数的组合，原型继承方法，构造函数继承属性
+
+**原型式继承本质**:基于已有对象创建一个对象,
+即对象A的浅拷贝,
+var b= Object.create(A)
+
+**寄生式继承本质:**
+创建一个用于封装继承过程的函数,
+function b(A){var clone = Object.create(A) ;clone.**=**;return clone;}
+
+**寄生组合继承本质:**
+寄生式继承超类型A的原型,并将结果赋值给子类型的原型;
+或对对象A的原型浅拷贝，
+function c(A,B){var clone = Object.create(A.prototype); clone.constructor = B;B.prototype=clone;) ;}
+
+```
+ function Person(name) {
+            this.name = ['123','456','789',name];
+        }
+        Person.prototype.go = function(){
+            return console.log(this.name)
+        }
+        Person.prototype.sex = ['男','女'];
+        var ren = new Person();
+        console.log('构造函数和原型的关系:',Person.prototype.constructor ===Person)
+        console.log('实例和原型的关系',ren.__proto__ ===Person.prototype)
+        
+        // 原型链继承 
+        // 缺点1.不能向person中传递参数；
+        // 缺点2.超类型的原型属性会被其他实例共享，一个实例改变，则其他实例也改变。
+        // 下面2个原型的顺序不能换  
+        function Shuagnfeng(love) {
+            this.love = ['fd','fddfdf']; 
+        }
+        Shuagnfeng.prototype = new Person();
+        console.log('会误会超类型Person:',Shuagnfeng.prototype.constructor ===Person) //true
+        console.log('构成原型链,',Shuagnfeng.prototype.__proto__ ===Person.prototype) //true
+        Shuagnfeng.prototype.constructor ===Shuagnfeng;
+        Shuagnfeng.prototype.goWork = function(){
+           return  console.log('原型链继承的方法');
+        }
+        var child = new Person();
+Shuagnfeng.prototype.name.push(121);
+console.log('超类型实例2 child',child.name);
+
+        var xiaozhang = new Shuagnfeng('dff');
+        var xiaozhang1 = new Shuagnfeng('zzz');
+        xiaozhang.go();
+        xiaozhang.goWork();   
+        xiaozhang.name.push('只对xiaozhang增加属于超类型Person中array值',22);
+        xiaozhang.love.push('只对xiaozhang增加属于构造函数中array值',22);
+        xiaozhang.sex.push('只对xiaozhang增加属于超类型的原型中array值');
+
+        console.log('xiaozhang.超类型Person中name',xiaozhang.name);
+        console.log('xiaozhang1.超类型Person中name',xiaozhang1.name);
+        console.log('xiaozhang.构造函数中中love',xiaozhang.love);
+        console.log('xiaozhang1.构造函数中love',xiaozhang1.love);
+        console.log('xiaozhang.超类型的原型中sex',xiaozhang.sex);
+        console.log('xiaozhang1.超类型的原型中sex',xiaozhang1.sex);
+
+
+// 构造函数的继承
+// 优点，不会改变引用类型的属性，能传递参数
+// 缺点无法复用方法；
+        function Jianbo() {
+            Person.call(this,'构造函数的继承')
+        }
+        var xiaonie = new Jianbo();
+        console.log('构造函数的继承xiaonie.name可传参数',xiaonie.name);
+       // xiaonie.go(); // 不存在
+
+
+
+// 组合继承
+// 原型链继承方法、构造函数继承属性
+        function Nb(love) {
+            Person.call(this,'nb')
+            this.love = love
+        }
+        Nb.prototype = new Person('12');
+        console.log('12',Nb.prototype.constructor ===Person) // true 
+        console.log('13',Nb.prototype.constructor ===Nb)// false 因为重写原型，会使原型失去了constructor属性
+        Nb.prototype.constructor =Nb
+         console.log('14',Nb.prototype.constructor ===Person) // false
+        Nb.prototype.say = function(){
+            console.log('say','say')
+        }
+        var nb= new Nb();
+        var nb1= new Nb('组合继承');
+        nb.name.push('xiaoniubi');
+        console.log('nb.name',nb.name);
+        console.log('nb1.name',nb1.name);
+        console.log('nb1.love',nb1.love);
+        nb.go();
+        nb.say();
+
+// 原型式继承Object.create()  将基础对象传给object()函数 
+// 本质是浅复制  副本的引用类型会被改变
+// 缺点：引用类型的属性会被共享  和原型链继承差不多
+// 使用场景： 让一个对象与另一个对象的保持类似
+function object(o){
+    function F(){}
+    F.prototype= o;
+    return new F();
+}
+var animal = {
+    name:'原型式继承默认值',
+    friends:[1,2,3,4]
+}
+var haha= object(animal);
+var gaga = Object.create(animal);
+var haha1= object(animal);
+console.log('haha',haha.name);
+console.log('gaga',gaga.name);
+haha.name='原型式继承name值变了';
+haha.friends.push('原型式继承array值变了');
+console.log('haha',haha.name);
+console.log('haha1',haha1.name);
+console.log('haha',haha.friends);
+console.log('haha1',haha1.friends);
+
+// 寄生式继承
+// 能继承方法，但方法不能复用
+function createAnother(original){
+ var clone =  object(original);
+ clone.say = function(){
+    console.log('寄生式继承方法')
+ }
+  return clone;
+}
+
+var hh = createAnother(animal);
+hh.name='寄生式继承'
+console.log('hh',hh.name);
+hh.say()       
+
+// 寄生组合式
+// 所有方式中最有效的方式 只调用继承的构造函数一次
+
+
+
+
+// 判断实例和原型的关系  使用instanceof 和 isPrototypeOf()
+        console.log('实例和原型的关系',xiaozhang instanceof Shuagnfeng);
+        console.log('实例和原型的关系',xiaozhang instanceof Person);
+        console.log('实例和原型的关系',xiaozhang instanceof Object);
+        console.log('实例和原型的关系',Object.prototype.isPrototypeOf(xiaozhang));
+        console.log(xiaozhang.__proto__); 
+```
+3.事件委托
+------------
+事件处理程序  获取事件对象 事件目标 
+好处 减少DOM 操作 ，减少性能
+```
+<div id="list">
+    <img id="1" src="1.png">
+    <img id="3.2.2" src="3.2.2.png">
+    <img id="3.2" src="3.2.png">
+</div>
+
+    <script type="text/javascript">
+    var EventUtil = {
+        addHandler: function(element,type,handler) {
+            if(element.addEventListener) {
+                element.addEventListener(type,handler,false)
+            } else if(element.attachEvent){
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+        removeHandler:function(element,type,handler) {
+            if(element.removeEventListener) {
+                element.removeEventListener(type,handler,false)
+            }
+        },
+        getEvent:function(event){
+            return event ? event : window.event;
+        },
+        getTarget:function(event){
+            return event.target || event.srcElement;
+        },
+    }
+    var list = document.getElementById('list')
+    EventUtil.addHandler(list,'click',function(ev){
+        event= EventUtil.getEvent(ev);
+        var target = EventUtil.getTarget(event);
+        alert(target.id);
+    })
+    //    list.onclick = function(ev){
+//         　var ev = ev || window.event;
+// 　　　　var target = ev.target || ev.srcElement;
+//         console.log(target.id);
+//     }
+    </script>
+```
+
+4.跨域
+----------------------
+**造成跨域的原因**：
+浏览器的同源策略，即XMLHttpRequest(XHR)对象只能访问同一域中的资源
+这是种防止恶意行为的安全策略。
+第二个：浏览器中不同域的框架之间是不能进行js的交互操作的。
+
+**何谓同源**:URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示它们同源。
+
+在浏览器中，<script>、<img>、<iframe>、<link>等标签属于DOM， 非XHR对象，是可以加载跨域资源
+
+
+**跨域方法**(实践中后两种最常用，所以重点介绍):
+(1) 通过jsonp跨域
+ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。
+(2) 通过修改document.domain来跨子域
+(3) 使用window.name来进行跨域
+(4) 使用HTML5中新引进的window.postMessage方法来跨域传送数据
+(5) 使用**代理服务器**,使用代理方式跨域更加直接，因为同源限制是浏览器实现的。如果请求不是从浏览器发起的，就不存在跨域问题了。
+
+    使用本方法跨域步骤如下：
+    1. 把访问其它域的请求替换为本域的请求
+    2. 服务器端的动态脚本负责将本域的请求转发成实际的请求
+    
+    为了通过Ajax从http://localhost:8080访问http://localhost:8081/api，可以将请求发往http://localhost:8080/api。
+    然后利用Apache Web服务器的Reverse Proxy功能做如下配置：ProxyPass /api http://localhost:8081/api
+
+(6) **CORS全称是"跨域资源共享**"（Cross-origin resource sharing),CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能 发送请求时，附加一个额外的Origin头部
+IE：XDR(XDomainRequest) 创建一个xdr实例，调用open() ,再send()方法；
+其他的，原生的支持，使用绝对的URL即可。
+
+附：ajax的扩展，comment/Web Sockets
+
+5.输入url之后，到底发生了什么？
+------------------
+
+你发现快要过年了，于是想给你的女朋友买一件毛衣，你打开了www.taobao.com。这时你的浏览器首先查询DNS服务器，将www.taobao.com转换成ip地址。不过首先你会发现，你在不同的地区或者不同的网络（电信、联通、移动）的情况下，转换后的ip地址很可能是不一样的，这首先涉及到负载均衡的第一步，通过DNS解析域名时将你的访问分配到不同的入口，同时尽可能保证你所访问的入口是所有入口中可能较快的一个(这和后文的CDN不一样)。
+
+你通过这个入口成功的访问了www.taobao.com的实际的入口ip地址。这时你产生了一个PV，即Page View，页面访问。每日每个网站的总PV量是形容一个网站规模的重要指标。淘宝网全网在平日(非促销期间)的PV大概是16-25亿之间。同时作为一个独立的用户，你这次访问淘宝网的所有页面，均算作一个UV（Unique Visitor用户访问）。最近臭名昭著的12306.cn的日PV量最高峰在10亿左右，而UV量却远小于淘宝网十余倍，这其中的原因我相信大家都会知道。
+
+因为同一时刻访问www.taobao.com的人数过于巨大，所以即便是生成淘宝首页页面的服务器，也不可能仅有一台。仅用于生成www.taobao.com首页的服务器就可能有成百上千台，那么你的一次访问时生成页面给你看的任务便会被分配给其中一台服务器完成。这个过程要保证公正、公平、平均(暨这成百上千台服务器每台负担的用户数要差不多)，这一很复杂的过程是由几个系统配合完成，其中最关键的便是LVS，Linux Virtual Server，世界上最流行的负载均衡系统之一，正是由目前在淘宝网供职的章文嵩博士开发的。
+
+经过一系列复杂的逻辑运算和数据处理，用于这次给你看的淘宝网首页的HTML内容便生成成功了。对web前端稍微有点常识的童鞋都应该知道，下一步浏览器会去加载页面中用到的css、js、图片等样式、脚本和资源文件。但是可能相对较少的同学才会知道，你的浏览器在同一个域名下并发加载的资源数量是有限制的，例如ie6-7是两个，ie8是6个，chrome各版本不大一样，一般是4-6个。我刚刚看了一下，我访问淘宝网首页需要加载126个资源，那么如此小的并发连接数自然会加载很久。所以前端开发人员往往会将上述这些资源文件分布在好多个域名下，变相的绕过浏览器的这个限制，同时也为下文的CDN工作做准备。
+
+据不可靠消息，在双十一当天高峰，淘宝的访问流量最巅峰达到871GB/S。这个数字意味着需要178万个4mb带宽的家庭宽带才能负担的起，也完全有能力拖垮一个中小城市的全部互联网带宽。那么显然，这些访问流量不可能集中在一起。并且大家都知道，不同地区不同网络(电信、联通等)之间互访会非常缓慢，但是你却发现很少发现淘宝网访问缓慢。这便是CDN，Content Delivery Network，即内容分发网络的作用。淘宝在全国各地建立了数十上百个CDN节点，利用一些手段保证你访问的(这里主要指js、css、图片等)地方是离你最近的CDN节点，这样便保证了大流量分散已经在各地访问的加速。
+这便出现了一个问题，那就是假若一个卖家发布了一个新的宝贝，上传了几张新的宝贝图片，那么淘宝网如何保证全国各地的CDN节点中都会同步的存在这几张图片供用户使用呢？这里边就涉及到了大量的内容分发与同步的相关技术。淘宝开发了分布式文件系统TFS(taobao file system)来处理这类问题。
+
+好了，这时你终于加载完了淘宝首页，那么你习惯性的在首页搜索框中输入了'毛衣'二字并敲回车，这时你又产生了一个PV，然后，淘宝网的主搜索系统便开始为你服务了。它首先对你输入的内容基于一个分词库进行的分词操作。众所周知，英文是以词为单位的，词和词之间是靠空格隔开，而中文是以字为单位，句子中所有的字连起来才能描述一个意思。例如，英文句子I am a student，用中文则为：“我是一个学生”。计算机可以很简单通过空格知道student是一个单词，但是不能很容易明白“学”、“生”两个字合起来才表示一个词。把中文的汉字序列切分成有意义的词，就是中文分词，有些人也称为切词。我是一个学生，分词的结果是：我 是 一个 学生。
+
+进行分词之后，还需要根据你输入的搜索词进行你的购物意图分析。用户进行搜索时常常有如下几类意图：（1）浏览型：没有明确的购物对象和意图，边看边买，用户比较随意和感性。Query例如：”2010年10大香水排行”，”2010年流行毛衣”， “zippo有多少种类？”；（2）查询型：有一定的购物意图，体现在对属性的要求上。Query例如：”适合老人用的手机”，”500元 手表”；（3）对比型：已经缩小了购物意图，具体到了某几个产品。Query例如：”诺基亚E71 E63″，”akg k450 px200″；（4）确定型：已经做了基本决定，重点考察某个对象。Query例如：”诺基亚N97″，”IBM T60″。通过对你的购物意图的分析，主搜索会呈现出完全不同的结果来。
+
+ 之后的数个步骤后，主搜索系统便根据上述以及更多复杂的条件列出了搜索结果，这一切是由一千多台搜索服务器完成。然后你开始逐一点击浏览搜索出的宝贝。你开始查看宝贝详情页面。经常网购的亲们会发现，当你买过了一个宝贝之后，即便是商家多次修改了宝贝详情页，你仍然能够通过‘已买到的宝贝’查看当时的快照。这是为了防止商家对在商品详情中承诺过的东西赖账不认。那么显然，对于每年数十上百亿比交易的商品详情快照进行保存和快速调用不是一个简单的事情。这其中又涉及到数套系统的共同协作，其中较为重要的是Tair，淘宝自行研发的分布式KV存储方案。
+
+然后无论你是否真正进行了交易，你的这些访问行为便忠实的被系统记录下来，用于后续的业务逻辑和数据分析。这些记录中访问日志记录便是最重要的记录之一，但是前边我们得知，这些访问是分布在各个地区很多不同的服务器上的，并且由于用户众多，这些日志记录都非常庞大，达到TB级别非常正常。那么为了快速及时传输同步这些日志数据，淘宝研发了TimeTunnel，用于进行实时的数据传输，交给后端系统进行计算报表等操作。
+
+你的浏览数据、交易数据以及其它很多很多的数据记录均会被保留下来。使得淘宝存储的历史数据轻而易举的便达到了十数甚至更多个PB(1PB=1024TB=1048576GB)。如此巨大的数据量经过淘宝系统1:120的极限压缩存储在淘宝的数据仓库中。并且通过一个叫做云梯的，由2000多台服务器组成的超大规模数据系统不断的进行分析和挖掘。
+
+从这些数据中淘宝能够知道小到你是谁，你喜欢什么，你的孩子几岁了，你是否在谈恋爱，喜欢玩魔兽世界的人喜欢什么样的饮料等，大到各行各业的零售情况、各类商品的兴衰消亡等等海量的信息。 
+
+5 JS引擎
+------
+
+浏览器内核又可以分成两部分：渲染引擎(layout engineer或者RenderingEngine)和JS引擎。
+JS的引擎深入分析[链接描述][2]
+[10分钟理解JS引擎的执行机制][3]
+http://www.ruanyifeng.com/blog/2014/10/event-loop.html
+JS引擎负责对JavaScript进行解释、编译和执行，以使网页达到一些动态的效果。
+
+js的几种引入方式；
+js引擎是单线程 异步的--- 任务队列 事件 和回调函数  Event Loop  
+是通过的事件循环(event loop),实现单线程和异步的。
+单线程：同一时刻只能执行一个代码块
+即将执行的代码被挡在任务队列中，但js引擎执行代码块结束，事件循环会执行任务队列中的下一个任务。
+Event Loop 负责监控代码执行和管理任务队列。
+异步的，即可通过事件 回调等方式，向任务队列中添加新任务。
+
+JS的执行机制是
+
+首先判断JS是同步还是异步,同步就进入主进程,异步就进入event table
+异步任务在event table中注册函数,当满足触发条件后,被推入event queue
+同步任务进入主线程后一直执行,直到主线程空闲时,才会去event queue中查看是否有可执行的异步任务,如果有就推入主进程中
+以上三步循环执行,这就是event loop
+
+准确的划分方式是:
+macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+micro-task(微任务)：Promise，process.nextTick
+按照这种分类方式:JS的执行机制是
+
+执行一个宏任务,过程中如果遇到微任务,就将其放到微任务的【事件队列】里
+当前宏任务执行完成后,会查看微任务的【事件队列】,并将里面全部的微任务依次执行完
+重复以上2步骤,结合event loop(1) event loop(2) ,就是更为准确的JS执行机制了。
+
+
+
+  [1]: https://github.com/fouber/blog/issues/10#issuecomment-138308585
+  [2]: https://blog.csdn.net/xygg0801/article/details/51925149
+  [3]: https://segmentfault.com/a/1190000012806637
